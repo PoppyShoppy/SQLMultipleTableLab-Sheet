@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS Supplier;
 DROP TABLE IF EXISTS Delivery;
 
 CREATE TABLE Item (
-	  ItemName VARCHAR (30) NOT NULL,
+	ItemName VARCHAR (30) NOT NULL,
   ItemType CHAR(1) NOT NULL,
   ItemColour VARCHAR(10),
   PRIMARY KEY (ItemName));
@@ -58,10 +58,23 @@ CREATE TABLE Delivery (
 
 SELECT * FROM sqlite_master; 
 
-select EmployeeName from Employee where DepartmentName = 'Marketing';
-select DISTINCT ItemName from Sale, Department where 
-Sale.DepartmentName= Department.DepartmentName and Department.DepartmentFloor = 2;
+select DISTINCT EmployeeName from Employee where DepartmentName = 'Marketing';
 
+select DISTINCT ItemName from Sale, Department where Sale.DepartmentName= Department.DepartmentName and Department.DepartmentFloor = 2;
+
+SELECT DISTINCT ItemName
+FROM (Sale NATURAL JOIN Department)
+WHERE Department.DepartmentFloor = 2;
+
+Identify by floor the items available on floors other than the second floor
+SELECT DISTINCT ItemName,
+Department.DepartmentFloor AS 'On
+Floor'
+FROM Delivery, Department
+WHERE Delivery.DepartmentName = Department.DepartmentName
+AND
+Department.DepartmentFloor <> 2
+ORDER BY Department.DepartmentFloor, ItemName;
 
 
 select DISTINCT 
@@ -76,3 +89,6 @@ select * from Delivery;
 SELECT EmployeeNumber, EmployeeName, BossNumber
 FROM Employee
 ORDER BY EmployeeNumber;
+
+
+select * from Item; 
